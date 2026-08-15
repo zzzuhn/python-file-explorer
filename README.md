@@ -29,6 +29,7 @@ This explorer provides a classic, keyboard-driven interface (similar to Midnight
 | `c` | Copy selected file |
 | `v` | Paste copied file (automatically handles name collisions) |
 | `d` | Delete selected file or folder (requires confirmation) |
+| `x` | Go to directory path copied in the clipboard (does nothing if invalid) |
 | `h` | Toggle the Help menu |
 | `ESC` | Close dialogs / cancel actions |
 

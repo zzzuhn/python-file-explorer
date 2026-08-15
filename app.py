@@ -2,6 +2,7 @@ import os
 import shutil
 import curses
 import subprocess
+import pyperclip
 from ui import CursesUI
 
 from utils import (
@@ -48,6 +49,7 @@ class FileBrowserApp:
             ("c", "Copy file"),
             ("v", "Paste file"),
             ("d", "Delete file/folder"),
+            ("x", "Go to clipboard path"),
             ("h", "Toggle help"),
             ("ESC", "Close dialogs")
         ]
@@ -242,6 +244,19 @@ class FileBrowserApp:
 
                 shutil.copy2(self.copied_path, destination)
 
+        elif key == ord("x"):
+            try:
+                clipboard_path = pyperclip.paste()
+                if clipboard_path:
+                    clipboard_path = clipboard_path.strip().strip('"').strip("'")
+                    if os.path.isdir(clipboard_path):
+                        self.current_dir = os.path.abspath(clipboard_path)
+                        self.selected = 0
+                        self.offset = 0
+                        self.right_offset = 0
+                        self.right_selected = 0
+            except Exception:
+                pass
 
         elif key == ord("d"):
             if os.path.basename(selected_path) == ".." or selected_path == self.current_dir:
